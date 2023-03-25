@@ -1,0 +1,10 @@
+s = input("input:")
+#https://www.facebook.com/dscareer
+s = s.split("/")
+print(s)
+
+s = input("input:")
+#https://www.facebook.com/dscareer
+s = s.split("/")
+print(s[2])
+#s[]中指定分割字串
