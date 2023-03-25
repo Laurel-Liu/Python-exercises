@@ -1,0 +1,12 @@
+x = int(input()) # 4
+
+f = 0 # 階乘總和
+
+for i in range(1, x+1):
+    factorial = 1
+    for j in range(1, i+1):
+        factorial *= j
+    f += factorial
+    print(f)
+
+print(f)
