@@ -1,0 +1,7 @@
+s = input("input:")
+# The company is not that poor! 
+s = s.replace("not that poor","good")
+print(s)
+
+s = input("Please input a sentence:")
+print(s.replace("not that bad", "good"))
