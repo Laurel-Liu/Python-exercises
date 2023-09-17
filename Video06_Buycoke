@@ -1,0 +1,86 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Video06_Buycoke
+{
+    internal class Program
+    {
+        //影片練習:利用for迴圈計算情境題
+        //題目:透過輸入持有的金錢以及一瓶可樂的單價，計算出可以獲得幾瓶可樂
+        //     其中，收集特定數量的可樂瓶蓋可以免費兌換一瓶
+
+        //宣告變數 input變數
+        static int Money = 0;
+        static int CokePrice = 0;
+        static int ExchangeFreeCoke = 0;
+
+        //宣告變數 產出變數(out put)
+        static int CokeAmount = 0;
+        static int CapAmount = 0; //全域變數 ->三個部分會牽扯到不同的函式
+
+        //第一部分:用錢購買可樂
+        //第二部分:購買可樂兌換免費可樂
+        //第三部分:兌換的可樂再兌換新的可樂
+
+        static void Main(string[] args)
+        {
+            //告訴電腦我們今天的情境($、可樂多貴 以及 多少瓶蓋可以兌換)
+            bool success;
+
+            Console.WriteLine("請輸入你有多少錢:");
+            success = Int32.TryParse(Console.ReadLine(), out Money);
+            Console.WriteLine("請輸入一罐可樂多少錢:");
+            success = Int32.TryParse(Console.ReadLine(), out CokePrice);
+            Console.WriteLine("請輸入多少瓶蓋可以換一瓶可樂:");
+            success = Int32.TryParse(Console.ReadLine(), out ExchangeFreeCoke);
+
+            //第一部分:購買可樂
+            for (int i = Money; i >= CokePrice; i = i - CokePrice)
+            {
+                CokeAmount++;
+                CapAmount++;
+            }
+
+            //第二部分，兌換可樂->利用別的函式
+            //把第一部分與第二部分連起來
+            CapForCoke(CapAmount); //瓶蓋數量丟到第二個函式 CapForCoke
+
+            Console.WriteLine("總共可以爽喝:" + CokeAmount + "瓶");
+            Console.ReadLine();
+        }
+
+        static void CapForCoke(int capamount) //目的->用瓶蓋兌換可樂
+        {
+            //還需要一個變數->去記錄兌換的可樂及瓶蓋
+            int addcap = 0;
+
+            if (capamount >= ExchangeFreeCoke)
+            {
+                for (int i = capamount; i >= ExchangeFreeCoke; i = i - ExchangeFreeCoke)
+                {
+                    CapAmount++;
+                    addcap++;
+                    CapAmount = CapAmount - ExchangeFreeCoke;
+                }
+                //我的瓶蓋又有新的了
+                CapAmount = CapAmount + addcap;
+
+                //進入第三部分，兌換完成的可樂 繼續兌換 ->用瓶蓋兌換可樂
+                if (CapAmount >= ExchangeFreeCoke)
+                {
+                    //遞迴函式 ->就是使用自己
+                    CapForCoke(CapAmount);
+                }
+                else { }
+            }
+
+            else { }
+
+        }
+        
+    }
+}
